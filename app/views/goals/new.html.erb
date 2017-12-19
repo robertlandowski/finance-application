@@ -1,0 +1,22 @@
+<h1>Enter your Financial Goals here:</h1>
+<h4>Average US Household Income is roughly $55,000 per year </h4>
+<ul class="new-goal-list">
+  <li><h4>That is $4,583 per month</h4></li>
+  <li><h4>Or $1,057 per week<h4></li>
+  <li><h4>Which is about $150 a day!<h4></li>
+</ul>
+<h4>Shoot for the Stars with your Goal! You can always adjust it later.</h4>
+</br>
+<%= form_for  @goals do |f| %>
+      <div class="form-group">
+        <%= f.label :yearly, "Yearly Financial Goal" %>
+        <%= f.number_field :yearly, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :created_at, "What day would you like to start?" %>
+        <%= f.text_field :created_at, class: 'form-control', id: "goal-start", placeholder: "Enter your start date", step: :any %>
+      </div>
+
+      <%= f.submit "Submit", class: 'btn btn-success' %>
+<%end%>

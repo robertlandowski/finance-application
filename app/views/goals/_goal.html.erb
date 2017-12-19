@@ -1,0 +1,14 @@
+<div class="media">
+   <div class="media-body">
+     <h4 class="media-heading">
+       GOALS
+     </h4>
+     <small>
+       submitted <%= time_ago_in_words(goal.created_at) %> ago by <%= goal.user.email %>
+       <p>Yearly Goal: <%= goal.yearly %></p>
+       <p>Weekly Goal: <%= goal.weekly %></p>
+       <p>Monthly Goal: <%= goal.monthly %></p>
+       <p>Daily Goal: <%= goal.daily %></p>
+     </small>
+   </div>
+ </div>

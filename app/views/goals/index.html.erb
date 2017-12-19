@@ -1,0 +1,8 @@
+<h1>All Goals</h1>
+<p>
+<% @goals.each do |goal| %>
+<p><%= goal.weekly %></p>
+<p><%= goal.yearly %></p>
+<p><%= goal.user_id %> </p>
+<% end %>
+</p>

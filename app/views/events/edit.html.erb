@@ -1,0 +1,24 @@
+<h1>Enter your Financial Goals here:</h1>
+<div class="event-box">
+  <%= form_for @event do |f| %>
+        <div class="form-group">
+          <%= f.label :title, "Type of Earnings" %>
+          <%= f.text_field :title, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
+        </div>
+        <div class="form-group">
+          <%= f.label :value, "Enter amount" %>
+          <%= f.number_field :value, class: 'form-control', placeholder: "Enter your monthly financial goal" , step: :any %>
+        </div>
+      <br>
+        <div class="form-group">
+          <%= f.label :recurring, "Recurring amount" %>
+          <%= f.select :recurring, [['Yes',true],['No',false]] , {required: 'true', class: 'form-control'}%>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :recurringtime, "How often does this amount occur?" %>
+          <%= f.select :recurringtime, [['One Time',0],['Daily',1], ['Weekly',7], ['Biweekly',14],['Monthly',30]] , {required: 'true', class: 'form-control'}%>
+        </div>
+        <%= f.submit "Submit", class: 'btn btn-success' %>
+  <%end%>
+</div>

@@ -1,0 +1,77 @@
+<% if current_user && current_user.budgets[0] != nil%>
+  <h1>Budget Summary for <%= current_user.email %> </h1>
+  <h4>Your Budget Completion Date is <%= completion_date(current_user)%></h4>
+  <div class="switch-button-div">
+    <%= link_to "Earnings", welcome_index_path, class: 'btn btn-success' %>
+  </div>
+  <div class="main-dashboard">
+    <div class="charts">
+      <%= pie_chart budgetevents_today(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}} %>
+      <h4>Percentage Complete</h4>
+      <p><%= daily_percent_complete_budget(current_user.budgetevents) %>% left</p>
+    </div>
+    <div class="charts">
+      <%= pie_chart budgetevents_weekly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}} %>
+      <h4>Percentage Complete</h4>
+      <p><%= weekly_percent_complete_budget(current_user.budgetevents) %>% left</p>
+    </div>
+    <div class="charts">
+      <%= pie_chart budgetevents_monthly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}} %>
+      <h4>Percentage Complete</h4>
+      <p><%= monthly_percent_complete_budget(current_user.budgetevents) %>% left</p>
+    </div>
+    <div class="charts">
+      <%= pie_chart budgetevents_yearly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}} %>
+      <h4>Percentage Complete</h4>
+      <p><%= yearly_percent_complete_budget(current_user.budgetevents) %>% left</p>
+    </div>
+  </div>
+    <div class="side-dashboard">
+      <div class="goal-box">
+        <h4>Daily Budget: $<%= current_user.budgets[0].daily%></h4>
+        <h4>Daily Spent: $<%= events_today(current_user.budgetevents)[0][1]%></h4>
+        <h4 style= "color:<%= color_choice(daily_pace_budget(current_user.budgetevents))%>">Daily Pace: $<%= daily_pace_budget(current_user.budgetevents)%></h4>
+      </div>
+      <div class="goal-box">
+        <h4>Weekly Budget: $<%= current_user.budgets[0].weekly%></h4>
+        <h4>Weekly Spent: $<%= events_weekly(current_user.budgetevents)[0][1]%></h4>
+        <h4 style= "color:<%= color_choice(weekly_pace_budget(current_user.budgetevents))%>">Weekly Pace: $<%= weekly_pace_budget(current_user.budgetevents)%></h4>
+      </div>
+      <div class="goal-box">
+        <h4>Monthly Budget: $<%= current_user.budgets[0].monthly%></h4>
+        <h4>Monthly Spent: $<%= events_monthly(current_user.budgetevents)[0][1]%></h4>
+        <h4 style= "color:<%= color_choice(monthly_pace_budget(current_user.budgetevents))%>">Monthly Pace: $<%= monthly_pace_budget(current_user.budgetevents)%></h4>
+      </div>
+      <div class="goal-box">
+        <h4>Yearly Budget: $<%= current_user.budgets[0].yearly%></h4>
+        <h4>Yearly Spent: $<%= events_yearly(current_user.budgetevents)[0][1]%></h4>
+        <h4 style= "color:<%= color_choice(yearly_pace_budget(current_user.budgetevents))%>">Yearly Pace: $<%= yearly_pace_budget(current_user.budgetevents)%></h4>
+      </div>
+      <div class="button-div">
+        <%= link_to "Add Event", new_budgetevent_path, class: 'btn btn-success' %>
+      </div>
+    </div>
+    <div class="bottom-main-dashboard">
+      <div class="events-dashboard">
+        <h3><%= link_to 'Recent Events', 'budgetevents'%></h3>
+        <% grouping_dates(current_user.budgetevents).each do |key, value| %>
+          <h4><%= key.strftime("%B %-d, %Y") %></h4>
+          <% value.each do |event| %>
+            <div>
+              <h5><%= event.title %></h5>
+              <h6>$<%= event.value %> earned</h6>
+              <%= link_to "Edit", edit_budgetevent_path(event), class: 'btn btn-success' %>
+              <%= link_to "Delete", [event] , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this post?' } %>
+            </div>
+          </br>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="events-dashboard">
+        <%= pie_chart current_user.budgetevents.group(:title).sum(:value), width: "400px", height: "400px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: true}, title: {text: 'Job Distribution', display: true}} %>
+      </div>
+    </div>
+<% else %>
+  <h3>Set up a Budget here</h3>
+  <%= link_to "New Budget", new_budget_path, class: 'btn btn-success' %>
+<% end %>

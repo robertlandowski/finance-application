@@ -1,0 +1,24 @@
+<h1>Enter your Financial Goals here:</h1>
+<%= form_for  @goals do |f| %>
+      <div class="form-group">
+        <%= f.label :yearly, "Yearly Financial Goal" %>
+        <%= f.number_field :yearly, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
+      </div>
+
+      <!-- <div class="form-group">
+        <%= f.label :monthly, "Monthly Financial Goal" %>
+        <%= f.number_field :monthly, class: 'form-control', placeholder: "Enter your monthly financial goal" , step: :any %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :weekly, "Weekly Financial Goal" %>
+        <%= f.number_field :weekly, class: 'form-control', placeholder: "Enter your weekly financial goal", step: :any %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :daily, "Daily Financial Goal" %>
+        <%= f.number_field :daily, class: 'form-control', placeholder: "Enter your daily financial goal" , step: :any%>
+      </div> -->
+
+      <%= f.submit "Submit", class: 'btn btn-success' %>
+<%end%>

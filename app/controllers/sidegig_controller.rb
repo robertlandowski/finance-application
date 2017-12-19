@@ -1,0 +1,2 @@
+class SidegigController < ApplicationController
+end

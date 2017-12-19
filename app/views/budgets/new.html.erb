@@ -1,0 +1,9 @@
+<h1>Enter your Financial Goals here:</h1>
+<%= form_for  @budgets do |f| %>
+      <div class="form-group">
+        <%= f.label :yearly, "Enter how much you expect to spend this year" %>
+        <%= f.number_field :yearly, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
+      </div>
+
+      <%= f.submit "Submit", class: 'btn btn-success' %>
+<%end%>
