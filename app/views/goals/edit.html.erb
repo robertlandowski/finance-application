@@ -1,14 +1,16 @@
 <h1>Edit your Financial Goals here:</h1>
-<%= form_for  @goal do |f| %>
-      <div class="form-group">
-        <%= f.label :yearly, "Yearly Financial Goal" %>
-        <%= f.number_field :yearly, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
-      </div>
+<div class="event-box">
+  <%= form_for  @goal do |f| %>
+        <div class="form-group">
+          <%= f.label :yearly, "Yearly Financial Goal" %>
+          <%= f.number_field :yearly, class: 'form-control', placeholder: "Enter your yearly financial goal", step: :any %>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :created_at, "What day would you like to start?" %>
-        <%= f.text_field :created_at, class: 'form-control', id: "goal-start", placeholder: "Enter your start date", step: :any %>
-      </div>
-      
-      <%= f.submit "Submit", class: 'btn btn-success' %>
-<%end%>
+        <div class="form-group">
+          <%= f.label :created_at, "What day would you like to start?" %>
+          <%= f.text_field :created_at, class: 'form-control', id: "goal-start", placeholder: "Enter your start date", step: :any %>
+        </div>
+
+        <%= f.submit "Submit", class: 'btn btn-success' %>
+  <%end%>
+</div>

@@ -1,45 +1,45 @@
 <% if current_user && current_user.budgets[0] != nil%>
   <h1>Budget Summary for <%= current_user.email %> </h1>
-  <h4>Your Budget Completion Date is <%= completion_date(current_user)%></h4>
+  <h4>Your Budget Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_budget_path(current_user.budgets[0].id), class: 'btn btn-success' %></h4>
   <div class="switch-button-div">
     <%= link_to "Earnings", welcome_index_path, class: 'btn btn-success' %>
   </div>
   <div class="main-dashboard">
     <div class="charts">
-      <%= pie_chart budgetevents_today(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
+      <%= pie_chart budgetevents_today(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
+      <h4>Percentage Remaining</h4>
       <p><%= daily_percent_complete_budget(current_user.budgetevents) %>% left</p>
     </div>
     <div class="charts">
-      <%= pie_chart budgetevents_weekly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
+      <%= pie_chart budgetevents_weekly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
+      <h4>Percentage Remaining</h4>
       <p><%= weekly_percent_complete_budget(current_user.budgetevents) %>% left</p>
     </div>
     <div class="charts">
-      <%= pie_chart budgetevents_monthly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
+      <%= pie_chart budgetevents_monthly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
+      <h4>Percentage Remaining</h4>
       <p><%= monthly_percent_complete_budget(current_user.budgetevents) %>% left</p>
     </div>
     <div class="charts">
-      <%= pie_chart budgetevents_yearly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
+      <%= pie_chart budgetevents_yearly(current_user.budgetevents), colors: colors_group, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
+      <h4>Percentage Remaining</h4>
       <p><%= yearly_percent_complete_budget(current_user.budgetevents) %>% left</p>
     </div>
   </div>
     <div class="side-dashboard">
       <div class="goal-box">
         <h4>Daily Budget: $<%= current_user.budgets[0].daily%></h4>
-        <h4>Daily Spent: $<%= events_today(current_user.budgetevents)[0][1]%></h4>
+        <h4>Daily Spent: $<%= (events_today(current_user.budgetevents)[0][1] + events_today(current_user.budgetevents)[-1][1]).round(2) %></h4>
         <h4 style= "color:<%= color_choice(daily_pace_budget(current_user.budgetevents))%>">Daily Pace: $<%= daily_pace_budget(current_user.budgetevents)%></h4>
       </div>
       <div class="goal-box">
         <h4>Weekly Budget: $<%= current_user.budgets[0].weekly%></h4>
-        <h4>Weekly Spent: $<%= events_weekly(current_user.budgetevents)[0][1]%></h4>
+        <h4>Weekly Spent: $<%= (events_weekly(current_user.budgetevents)[0][1] + events_weekly(current_user.budgetevents)[-1][1]).round(2)%></h4>
         <h4 style= "color:<%= color_choice(weekly_pace_budget(current_user.budgetevents))%>">Weekly Pace: $<%= weekly_pace_budget(current_user.budgetevents)%></h4>
       </div>
       <div class="goal-box">
         <h4>Monthly Budget: $<%= current_user.budgets[0].monthly%></h4>
-        <h4>Monthly Spent: $<%= events_monthly(current_user.budgetevents)[0][1]%></h4>
+        <h4>Monthly Spent: $<%= (events_monthly(current_user.budgetevents)[0][1] + events_monthly(current_user.budgetevents)[-1][1]).round(2)%></h4>
         <h4 style= "color:<%= color_choice(monthly_pace_budget(current_user.budgetevents))%>">Monthly Pace: $<%= monthly_pace_budget(current_user.budgetevents)%></h4>
       </div>
       <div class="goal-box">

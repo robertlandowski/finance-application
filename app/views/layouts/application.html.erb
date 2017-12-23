@@ -19,12 +19,11 @@
     <%= link_to "Side Gigs", sidegig_index_path,:class => 'navbar-link'  %>
     <div class = "pull-right user-info">
       <% if user_signed_in? %>
-        <%= image_tag current_user.avatar_url(24), class: "gravatar" %>
-         <strong> <%= link_to current_user.email, user_path(current_user) %></strong>
-         <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-       <% else %>
-          <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %>
-          <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
+       <strong> <%= link_to current_user.email, user_path(current_user) %></strong>
+       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %>
+        <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
       <% end %>
     </div>
   </div>

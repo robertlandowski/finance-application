@@ -30,8 +30,8 @@ module BudgeteventsHelper
         events_weekly << [event.title , event.value]
         sum += event.value
       elsif event.recurringtime > 7
-        fractional_value = ((event.value * 1.00) / event.recurringtime).round(2)
-        sum += (fractional_value * 7)
+        fractional_value = (((event.value * 1.00) / event.recurringtime) * 7).round(2)
+        sum += fractional_value
         events_weekly << [event.title, fractional_value]
       end
     end
@@ -64,7 +64,7 @@ module BudgeteventsHelper
       remaining = 0
     end
 
-    events_month << ["Amount Remaining",remaining]
+    events_month << ["Amount Remaining",remaining.round(2)]
     return events_month.reverse
   end
 

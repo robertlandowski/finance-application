@@ -19,6 +19,11 @@
           <%= f.label :recurringtime, "How often does this amount occur?" %>
           <%= f.select :recurringtime, [['One Time',0],['Daily',1], ['Weekly',7], ['Biweekly',14],['Monthly',30]] , {required: 'true', class: 'form-control'}%>
         </div>
+
+        <div class="form-group">
+          <%= f.label :created_at, "Enter the start date" %>
+          <%= f.text_field :created_at, class: 'form-control', placeholder: "dd-mm-yyyy", step: :any %>
+        </div>
         <%= f.submit "Submit", class: 'btn btn-success' %>
   <%end%>
 </div>

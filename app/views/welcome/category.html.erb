@@ -3,28 +3,26 @@
   <h4>Your Goal Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_goal_path(current_user.goals[0].id), class: 'btn btn-success' %></h4>
   <div class="switch-button-div">
     <%= link_to "Budget", budgets_path, class: 'btn btn-success' %>
-    <%= link_to "Switch", welcome_category_path, class: 'btn btn-success' %>
+    <%= link_to "Switch", welcome_index_path, class: 'btn btn-success' %>
   </div>
   <div class="main-dashboard">
     <div class="charts">
-      <% if current_user.display == true %>
-        <%= pie_chart events_today(current_user.events), colors: ['#265C00', '#F1F1F2', '#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}} %>
-      <% end %>
+        <%= pie_chart switch_events_today(current_user.events), colors: colors_group_switch, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
       <h4>Percentage Complete</h4>
       <p><%= daily_percent_complete(current_user.events) %>%</p>
     </div>
     <div class="charts">
-      <%= pie_chart events_weekly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}} %>
+      <%= pie_chart switch_events_weekly(current_user.events), colors: colors_group_switch, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
       <h4>Percentage Complete</h4>
       <p><%= weekly_percent_complete(current_user.events) %>%</p>
     </div>
     <div class="charts">
-      <%= pie_chart events_monthly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}} %>
+      <%= pie_chart switch_events_monthly(current_user.events), colors: colors_group_switch, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}, elements: {arc: {borderWidth: 0}}} %>
       <h4>Percentage Complete</h4>
       <p><%= monthly_percent_complete(current_user.events) %>%</p>
     </div>
     <div class="charts">
-      <%= pie_chart events_yearly(current_user.events), colors: ['#265C00', '#F1F1F2'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}} %>
+      <%= pie_chart switch_events_yearly(current_user.events), colors: colors_group_switch, width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}, elements: {arc: {borderWidth: 0}}}%>
       <h4>Percentage Complete</h4>
       <p><%= yearly_percent_complete(current_user.events) %>%</p>
     </div>
@@ -71,10 +69,7 @@
         <% end %>
       </div>
       <div class="events-dashboard">
-        <%= pie_chart event_totals(current_user.events, current_user.budgetevents), colors: ['#265C00', 'red'], width: "400px", height: "400px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: true}, title: {text: 'Savings Chart', display: true}} %>
-        <h4>Amount Earned: $<%= events_yearly(current_user.events)[0][1]%></h4>
-        <h4>Amount Spent: $<%= event_totals(current_user.events, current_user.budgetevents)[-1][1]%></h4>
-        <h4 style= "color:<%= event_color_choice(events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%>">Savings: $<%= (events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%></h4>
+        <%= pie_chart current_user.events.group(:title).sum(:value), width: "400px", height: "400px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: true}, title: {text: 'Job Distribution', display: true}, elements: {arc: {borderWidth: 0.1}}} %>
       </div>
     </div>
 <% elsif current_user && current_user.goals[0] == nil %>

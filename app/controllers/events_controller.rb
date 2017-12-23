@@ -51,6 +51,6 @@ class EventsController < ApplicationController
   private
 
   def events_params
-    params.require(:event).permit(:title, :value, :recurring, :recurringtime, :duplicated)
+    params.require(:event).permit(:title, :value, :recurring, :recurringtime, :duplicated, :created_at)
   end
 end
