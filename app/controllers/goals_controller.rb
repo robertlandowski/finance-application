@@ -16,7 +16,7 @@ class GoalsController < ApplicationController
     @goals.daily = (@goals.yearly)/365
 
 
-    if @goals.created_at.to_date >= Time.now.to_date && @goals.save
+    if @goals.save
       redirect_to welcome_index_path, notice: "Goal was saved successfully."
     else
       redirect_to :action => :new, notice: "Error YO!"
