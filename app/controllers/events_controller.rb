@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.create(events_params)
-    @event.created_at = @event.created_at + (-1 * Time.zone_offset(Time.now.localtime.zone))
+    @event.created_at = @event.created_at
     @event.user = current_user
 
     if @event.save

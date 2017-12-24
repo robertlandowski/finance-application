@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220041404) do
+ActiveRecord::Schema.define(version: 20171224053227) do
 
   create_table "budgetevents", force: :cascade do |t|
     t.string   "title"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20171220041404) do
     t.integer  "role"
     t.string   "name"
     t.boolean  "display",                default: true
+    t.string   "timezone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

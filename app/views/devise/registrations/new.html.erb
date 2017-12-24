@@ -22,6 +22,11 @@
       <%= f.password_field :password_confirmation, autocomplete: "off", class: 'input-color' %>
     </div>
 
+    <div class="field">
+      <%= f.label :timezone %>
+      <%= f.text_field :timezone, autofocus: true, class: 'input-color' %>
+    </div>
+
     <div>
       <br/>
       <%= f.submit "Sign up" , class: "btn btn-success"%>

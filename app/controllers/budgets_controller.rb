@@ -10,7 +10,7 @@ class BudgetsController < ApplicationController
   def create
     @budgets = Budget.create(budgets_params)
     @budgets.user = current_user
-    @budgets.created_at = @budgets.created_at + (-1 * Time.zone_offset(Time.now.localtime.zone))
+    @budgets.created_at = @budgets.created_at + (-1 * Time.zone_offset(current_user.timezone))
     @budgets.monthly = (@budgets.yearly)/12
     @budgets.weekly = (@budgets.yearly)/52
     @budgets.daily = (@budgets.yearly)/365
