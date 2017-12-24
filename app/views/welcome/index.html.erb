@@ -1,85 +1,93 @@
 <% if current_user && current_user.goals[0] != nil%>
-  <h1>Financial Goal Summary for <%= current_user.email %> </h1>
-  <h4>Your Goal Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_goal_path(current_user.goals[0].id), class: 'btn btn-success' %></h4>
-  <div class="switch-button-div">
-    <%= link_to "Budget", budgets_path, class: 'btn btn-success' %>
-    <%= link_to "Switch", welcome_category_path, class: 'btn btn-success' %>
-  </div>
-  <div class="main-dashboard">
-    <div class="charts">
-      <% if current_user.display == true %>
-        <%= pie_chart events_today(current_user.events), colors: ['#265C00', '#F1F1F2', '#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}} %>
-      <% end %>
-      <h4>Percentage Complete</h4>
-      <p><%= daily_percent_complete(current_user.events) %>%</p>
+  <% if current_user.events.count == 0 %>
+    <h1>Oh no you haven't entered any events!</h1>
+    <h4>To get started with Koin Charts, enter an event below </h4>
+    <div class="button-div">
+      <%= link_to "Add Event", '/events/new', class: 'btn btn-success' %>
     </div>
-    <div class="charts">
-      <%= pie_chart events_weekly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
-      <p><%= weekly_percent_complete(current_user.events) %>%</p>
+  <% else %>
+    <h1>Financial Goal Summary for <%= current_user.email %> </h1>
+    <h4>Your Goal Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_goal_path(current_user.goals[0].id), class: 'btn btn-success' %></h4>
+    <div class="switch-button-div">
+      <%= link_to "Budget", budgets_path, class: 'btn btn-success' %>
+      <%= link_to "Switch", welcome_category_path, class: 'btn btn-success' %>
     </div>
-    <div class="charts">
-      <%= pie_chart events_monthly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
-      <p><%= monthly_percent_complete(current_user.events) %>%</p>
-    </div>
-    <div class="charts">
-      <%= pie_chart events_yearly(current_user.events), colors: ['#265C00', '#F1F1F2'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}} %>
-      <h4>Percentage Complete</h4>
-      <p><%= yearly_percent_complete(current_user.events) %>%</p>
-    </div>
-  </div>
-    <div class="side-dashboard">
-      <div class="goal-box">
-        <h4>Daily Goal: $<%= current_user.goals[0].daily%></h4>
-        <h4>Daily Earned: $<%= (events_today(current_user.events)[0][1] + events_today(current_user.events)[-1][1]).round()%></h4>
-        <h4 style= "color:<%= event_color_choice(daily_pace(current_user.events))%>">Daily Pace: $<%= daily_pace(current_user.events)%></h4>
-      </div>
-      <div class="goal-box">
-        <h4>Weekly Goal: $<%= current_user.goals[0].weekly%></h4>
-        <h4>Weekly Earned: $<%= (events_weekly(current_user.events)[0][1] + events_weekly(current_user.events)[-1][1]).round()%></h4>
-        <h4 style= "color:<%= event_color_choice(weekly_pace(current_user.events))%>">Weekly Pace: $<%= weekly_pace(current_user.events)%></h4>
-      </div>
-      <div class="goal-box">
-        <h4>Monthly Goal: $<%= current_user.goals[0].monthly%></h4>
-        <h4>Monthly Earned: $<%= (events_monthly(current_user.events)[0][1] + events_monthly(current_user.events)[-1][1]).round()%></h4>
-        <h4 style= "color:<%= event_color_choice(monthly_pace(current_user.events))%>">Monthly Pace: $<%= monthly_pace(current_user.events)%></h4>
-      </div>
-      <div class="goal-box">
-        <h4>Yearly Goal: $<%= current_user.goals[0].yearly%></h4>
-        <h4>Yearly Earned: $<%= events_yearly(current_user.events)[0][1]%></h4>
-        <h4 style= "color:<%= event_color_choice(yearly_pace(current_user.events))%>">Yearly Pace: $<%= yearly_pace(current_user.events)%></h4>
-      </div>
-      <div class="button-div">
-        <%= link_to "Add Event", '/events/new', class: 'btn btn-success' %>
-      </div>
-    </div>
-    <div class="bottom-main-dashboard">
-      <div class="events-dashboard">
-        <h3><%= link_to 'Recent Events', 'events'%></h3>
-        <% grouping_dates(current_user.events).each do |key, value| %>
-          <h4><%= key.strftime("%B %-d, %Y") %></h4>
-          <% value.each do |event| %>
-            <div>
-              <h5><%= event.title %></h5>
-              <h6>$<%= event.value %> earned</h6>
-              <%= link_to "Edit", edit_event_path(event), class: 'btn btn-success' %>
-              <%= link_to "Delete", [event] , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this post?' } %>
-            </div>
-          </br>
-          <% end %>
+    <div class="main-dashboard">
+      <div class="charts">
+        <% if current_user.display == true %>
+          <%= pie_chart events_today(current_user.events), colors: ['#265C00', '#F1F1F2', '#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Daily Chart', display: true}} %>
         <% end %>
+        <h4>Percentage Complete</h4>
+        <p><%= daily_percent_complete(current_user.events) %>%</p>
       </div>
-      <div class="events-dashboard">
-        <%= pie_chart event_totals(current_user.events, current_user.budgetevents), colors: ['#265C00', 'red'], width: "400px", height: "400px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: true}, title: {text: 'Savings Chart', display: true}} %>
-        <h4>Amount Earned: $<%= events_yearly(current_user.events)[0][1]%></h4>
-        <h4>Amount Spent: $<%= event_totals(current_user.events, current_user.budgetevents)[-1][1]%></h4>
-        <h4 style= "color:<%= event_color_choice(events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%>">Savings: $<%= (events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%></h4>
+      <div class="charts">
+        <%= pie_chart events_weekly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Weekly Chart', display: true}} %>
+        <h4>Percentage Complete</h4>
+        <p><%= weekly_percent_complete(current_user.events) %>%</p>
+      </div>
+      <div class="charts">
+        <%= pie_chart events_monthly(current_user.events), colors: ['#265C00', '#F1F1F2','#68A225'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Monthly Chart', display: true}} %>
+        <h4>Percentage Complete</h4>
+        <p><%= monthly_percent_complete(current_user.events) %>%</p>
+      </div>
+      <div class="charts">
+        <%= pie_chart events_yearly(current_user.events), colors: ['#265C00', '#F1F1F2'], width: "200px", height: "200px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: false}, title: {text: 'Yearly Chart', display: true}} %>
+        <h4>Percentage Complete</h4>
+        <p><%= yearly_percent_complete(current_user.events) %>%</p>
       </div>
     </div>
-<% elsif current_user && current_user.goals[0] == nil %>
-  <p>In order to get started, let's set up your financial goals!</p>
-  <%= link_to "New Goal!", 'goals/new', class: 'btn btn-success' %>
-<% else %>
-  <%= render 'landing' %>
-<% end %>
+      <div class="side-dashboard">
+        <div class="goal-box">
+          <h4>Daily Goal: $<%= current_user.goals[0].daily%></h4>
+          <h4>Daily Earned: $<%= (events_today(current_user.events)[0][1] + events_today(current_user.events)[-1][1]).round()%></h4>
+          <h4 style= "color:<%= event_color_choice(daily_pace(current_user.events))%>">Daily Pace: $<%= daily_pace(current_user.events)%></h4>
+        </div>
+        <div class="goal-box">
+          <h4>Weekly Goal: $<%= current_user.goals[0].weekly%></h4>
+          <h4>Weekly Earned: $<%= (events_weekly(current_user.events)[0][1] + events_weekly(current_user.events)[-1][1]).round()%></h4>
+          <h4 style= "color:<%= event_color_choice(weekly_pace(current_user.events))%>">Weekly Pace: $<%= weekly_pace(current_user.events)%></h4>
+        </div>
+        <div class="goal-box">
+          <h4>Monthly Goal: $<%= current_user.goals[0].monthly%></h4>
+          <h4>Monthly Earned: $<%= (events_monthly(current_user.events)[0][1] + events_monthly(current_user.events)[-1][1]).round()%></h4>
+          <h4 style= "color:<%= event_color_choice(monthly_pace(current_user.events))%>">Monthly Pace: $<%= monthly_pace(current_user.events)%></h4>
+        </div>
+        <div class="goal-box">
+          <h4>Yearly Goal: $<%= current_user.goals[0].yearly%></h4>
+          <h4>Yearly Earned: $<%= events_yearly(current_user.events)[0][1]%></h4>
+          <h4 style= "color:<%= event_color_choice(yearly_pace(current_user.events))%>">Yearly Pace: $<%= yearly_pace(current_user.events)%></h4>
+        </div>
+        <div class="button-div">
+          <%= link_to "Add Event", '/events/new', class: 'btn btn-success' %>
+        </div>
+      </div>
+      <div class="bottom-main-dashboard">
+        <div class="events-dashboard">
+          <h3><%= link_to 'Recent Events', 'events'%></h3>
+          <% grouping_dates(current_user.events).each do |key, value| %>
+            <h4><%= key.strftime("%B %-d, %Y") %></h4>
+            <% value.each do |event| %>
+              <div>
+                <h5><%= event.title %></h5>
+                <h6>$<%= event.value %> earned</h6>
+                <%= link_to "Edit", edit_event_path(event), class: 'btn btn-success' %>
+                <%= link_to "Delete", [event] , method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this post?' } %>
+              </div>
+            </br>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="events-dashboard">
+          <%= pie_chart event_totals(current_user.events, current_user.budgetevents), colors: ['#265C00', 'red'], width: "400px", height: "400px", library:{animation:{easing: 'easeOutQuad'}, legend: {display: true}, title: {text: 'Savings Chart', display: true}} %>
+          <h4>Amount Earned: $<%= events_yearly(current_user.events)[0][1]%></h4>
+          <h4>Amount Spent: $<%= event_totals(current_user.events, current_user.budgetevents)[-1][1]%></h4>
+          <h4 style= "color:<%= event_color_choice(events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%>">Savings: $<%= (events_yearly(current_user.events)[0][1] - event_totals(current_user.events, current_user.budgetevents)[-1][1])%></h4>
+        </div>
+      </div>
+    <% end %>
+  <% elsif current_user && current_user.goals[0] == nil %>
+    <p>In order to get started, let's set up your financial goals!</p>
+    <%= link_to "New Goal!", 'goals/new', class: 'btn btn-success' %>
+  <% else %>
+    <%= render 'landing' %>
+  <% end %>

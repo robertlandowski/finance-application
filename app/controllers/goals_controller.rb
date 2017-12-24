@@ -10,6 +10,7 @@ class GoalsController < ApplicationController
   def create
     @goals = Goal.create(goals_params)
     @goals.user = current_user
+    @goals.created_at = @goals.created_at + (-1 * Time.zone_offset(Time.now.localtime.zone))
     @goals.monthly = (@goals.yearly)/12
     @goals.weekly = (@goals.yearly)/52
     @goals.daily = (@goals.yearly)/365
