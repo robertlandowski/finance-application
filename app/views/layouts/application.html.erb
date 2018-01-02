@@ -11,6 +11,15 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111861975-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-111861975-1');
+  </script>
 </head>
 <body>
   <div class='navbar'>
@@ -30,6 +39,16 @@
   </div>
   <% if user_signed_in? %>
     <div class="container-main">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- Rob's ad 3 -->
+      <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-1158355279235376"
+       data-ad-slot="3768721838"
+       data-ad-format="auto"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
   <% else %>
     <div>
   <% end %>
@@ -44,7 +63,19 @@
            <%= flash[:alert] %>
          </div>
        <% end %>
-       <%= yield %>
+      <%= yield %>
      </div>
+     <% if user_signed_in? %>
+         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+         <!-- Rob's ad 3 -->
+         <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-1158355279235376"
+          data-ad-slot="3768721838"
+          data-ad-format="auto"></ins>
+         <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+         </script>
+      <% end %>
 </body>
 </html>
