@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @event.user = current_user
 
     if @event.save
-      redirect_to :action => :index, notice: "Goal was saved successfully."
+      redirect_to welcome_index_path, notice: "Goal was saved successfully."
     end
   end
 

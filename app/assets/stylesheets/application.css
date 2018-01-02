@@ -158,24 +158,37 @@
 }
 
 .main-landing {
-  background-color: #F1F1F2;
+  background-color: #66CDAA;
   background-size: cover;
-  color: black;
-  height: 500px;
+  color: white;
+  height: 700px;
+  width: cover;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .main-landing .container-main {
   background: none;
 }
 
-.landing-box {
-  height: 300px;
-  width: 300px;
-  /*background: #68A225;*/
-  float:right;
-  margin-top:10px;
+.landing-header {
+  margin-top: 20px;
+  text-align:center;
+  opacity: 0;
+  -webkit-transform: scaleX(0.9) translateY(3rem);
+  -moz-transform: scaleX(0.9) translateY(3rem);
+  transform: scaleX(0.9) translateY(3rem);
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  transition-delay: 0.2s;
 }
 
+.landing-header h1{
+  font-size:8rem;
+}
 .bottom-main-dashboard{
   border:1px solid black;
   height: 500px;
@@ -202,7 +215,78 @@
   margin-top:0;
 }
 
-.sidegog-header table{
+.sidegig-header table{
   text-align: center;
   margin:auto;
+}
+
+.landing-box{
+  display: inline-block;
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 47%;
+  margin-top: 25px;
+  text-align:center;
+}
+
+.sign-up-box{
+  display: block;
+  margin-top: 400px;
+  text-align: center;
+  margin-bottom:100px;
+}
+
+.landing-box ul{
+  text-align: left;
+  margin-left: 10%;
+}
+
+.landing-box h2{
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.ion-cash{
+  font-size: 15rem;
+  color:black;
+}
+
+.ion-social-usd{
+  font-size: 15rem;
+  color:black;
+}
+
+.ion-arrow-graph-up-right{
+  font-size: 15rem;
+  color:black;
+}
+
+.ion-pie-graph{
+  font-size: 15rem;
+  color:black;
+}
+
+.second-landing{
+  background-color: white;
+  height:500px;
+}
+
+.landing-icons{
+  display: inline-block;
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 31%;
+  height: 100px;
+  margin-top: 0%;
+  text-align: center
+}
+
+.second-landing h2{
+  color:black;
+}
+
+.second-landing h4{
+  color:black;
 }

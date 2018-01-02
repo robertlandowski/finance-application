@@ -105,6 +105,11 @@ module WelcomeHelper
     return date.strftime("%B %-d, %Y")
   end
 
+  def completion_date_budgets(current_user)
+    date = current_user.budgets[0].created_at + 365.days
+    return date.strftime("%B %-d, %Y")
+  end
+
   def grouping_dates(events)
     if events.length <= 3
       return events.reverse.group_by {|i| i.created_at.localtime.to_date}

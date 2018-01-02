@@ -1,6 +1,6 @@
 <% if current_user && current_user.budgets[0] != nil%>
   <h1>Budget Summary for <%= current_user.email %> </h1>
-  <h4>Your Budget Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_budget_path(current_user.budgets[0].id), class: 'btn btn-success' %></h4>
+  <h4>Your Budget Completion Date is <%= completion_date_budgets(current_user)%> <%= link_to "Edit", edit_budget_path(current_user.budgets[0].id), class: 'btn btn-success' %></h4>
   <div class="switch-button-div">
     <%= link_to "Earnings", welcome_index_path, class: 'btn btn-success' %>
   </div>

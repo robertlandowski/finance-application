@@ -6,8 +6,6 @@
       <%= link_to "Add Event", '/events/new', class: 'btn btn-success' %>
     </div>
   <% else %>
-    <%= Time.now.localtime %>
-    <%= Time.now.in_time_zone("Pacific Time (US & Canada)") %>
     <h1>Financial Goal Summary for <%= current_user.email %> </h1>
     <h4>Your Goal Completion Date is <%= completion_date(current_user)%> <%= link_to "Edit", edit_goal_path(current_user.goals[0].id), class: 'btn btn-success' %></h4>
     <div class="switch-button-div">
@@ -93,3 +91,4 @@
   <% else %>
     <%= render 'landing' %>
   <% end %>
+  <%= javascript_include_tag "application" %>
