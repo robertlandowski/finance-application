@@ -121,7 +121,7 @@ module WelcomeHelper
   end
 
   def daily_pace(events)
-    time_passed_percent = 1 - ((Time.now.localtime.end_of_day.to_i - Time.now.localtime.to_i)/86400.00)
+    time_passed_percent = 1 - ((Time.current.end_of_day.to_i - Time.current.to_i)/86400.00)
     pace = current_user.goals[0].daily * time_passed_percent
     current_amount = events_today(events)[0][1] + events_today(events)[-1][1]
     amount_behind = current_amount - pace
