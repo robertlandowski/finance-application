@@ -3,7 +3,7 @@ module WelcomeHelper
     events_today = []
     divided_value = []
     events.each do |event|
-      if Time.now.localtime.to_date == event.created_at.localtime.to_date && event.recurringtime <= 1
+      if Time.current.to_date == event.created_at.to_date && event.recurringtime <= 1
         events_today << event.value
       elsif event.recurringtime > 1 && (event.created_at.to_date + event.recurringtime.days) > Time.now.localtime.to_date
         divided_value << ((1.00 * event.value)/event.recurringtime)
