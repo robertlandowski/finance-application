@@ -3,7 +3,7 @@ module BudgeteventsHelper
     events_today = []
     sum = 0
     events.each do |event|
-      if Time.now.current.to_date == event.created_at.to_date && event.recurringtime <= 1
+      if Time.current.to_date == event.created_at.to_date && event.recurringtime <= 1
         events_today << [event.title , event.value]
         sum += event.value
       elsif event.recurringtime > 1
